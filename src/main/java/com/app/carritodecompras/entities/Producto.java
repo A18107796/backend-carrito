@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "producto")
 public class Producto implements Serializable {
@@ -97,6 +96,11 @@ public class Producto implements Serializable {
 			return false;
 		}
 
+	}
+
+	public int getStockReducido(int fStock) {
+		int returnSTOCK = this.stock - fStock;
+		return returnSTOCK;
 	}
 
 	/**

@@ -5,9 +5,11 @@ import java.util.Observable;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.carritodecompras.dao.ProductoDAO;
 import com.app.carritodecompras.entities.Producto;
+import com.app.carritodecompras.exceptions.BadRequestException;
 import com.app.carritodecompras.exceptions.NotFoundException;
 import com.app.carritodecompras.generics.service.GenericServiceImpl;
 
@@ -32,17 +34,32 @@ public class ProductoServiceImpl extends GenericServiceImpl<Producto, ProductoDA
 	}
 
 	@Override
+	@Transactional
 	public boolean CheckStock(Integer idProducto, Integer FrontStock) {
 		Optional<Producto> p = dao.findById(idProducto);
 		if (p.isEmpty()) {
 			throw new NotFoundException("El producto no existe para validar stock");
 		}
-		return p.get().hasStock(FrontStock);
+
+		if (!p.get().hasStock(FrontStock)) {
+			throw new BadRequestException("No hay stock suficiente");
+		}
+
+		int res = dao.updateStock(p.get().getStockReducido(FrontStock), idProducto);
+		if (res > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean reduceStock(Integer idProducto, Integer frontStock) {
-		// TODO Auto-generated method stub
+
+		if (!CheckStock(idProducto, frontStock)) {
+			throw new BadRequestException("No hay stock suficiente");
+		}
+
 		return false;
 	}
 
