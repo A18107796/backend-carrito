@@ -14,7 +14,12 @@ import javax.persistence.Table;
 @Table(name = "clientes")
 public class Cliente extends Persona implements Serializable {
 
-	
+	public Cliente(Integer id) {
+		super(id);
+	}
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
 	private static final long serialVersionUID = 1L;
 
 }

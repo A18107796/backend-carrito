@@ -24,6 +24,17 @@ public class Persona {
 	private String email;
 	
 	private String telefono;
+	
+	public Persona() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Persona(Integer id) {
+		super();
+		this.id = id;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -71,6 +82,13 @@ public class Persona {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombres=" + nombres + ", dni=" + dni + ", direccion=" + direccion + ", email="
+				+ email + ", telefono=" + telefono + "]";
 	}
 	
 	

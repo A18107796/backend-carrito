@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.carritodecompras.dao.ComprasDAO;
+import com.app.carritodecompras.dao.DetalleComprasDAO;
 import com.app.carritodecompras.dao.ProductoDAO;
 import com.app.carritodecompras.entities.Compras;
 import com.app.carritodecompras.entities.Detalle_compras;
@@ -28,6 +29,10 @@ public class ComprasServiceImpl extends GenericServiceImpl<Compras, ComprasDAO, 
 
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private DetalleComprasDAO detalleDAO;
+	
 
 	@Override
 	@Transactional
@@ -38,9 +43,11 @@ public class ComprasServiceImpl extends GenericServiceImpl<Compras, ComprasDAO, 
 				throw new InternalServerError("Ocurrio un error interno, intentelo denuevo :(");
 			}
 		}
+		
+			
 		compra.setEstado("PAGADO - Envio Pendiente");
 		compra.setFecha_compras(new Date());
-		compra.setCliente(null);
+	
 		compra.setPago(null);
 		return dao.save(compra);
 	}
@@ -49,6 +56,16 @@ public class ComprasServiceImpl extends GenericServiceImpl<Compras, ComprasDAO, 
 	public Compras cambiarEstadoCompra(Integer idCompra, String estado) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Double getGananciasTotales() {
+		return detalleDAO.getGananciasTotales();
+	}
+
+	@Override
+	public Double getGanancias(String fecha_inicio, String fecha_fin) {
+		return detalleDAO.getGanancias(fecha_inicio, fecha_fin);
 	}
 
 }

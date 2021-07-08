@@ -7,6 +7,8 @@ import com.app.carritodecompras.entities.Cliente;
 import com.app.carritodecompras.generics.service.GenericServiceImpl;
 
 @Service
-public class ClienteServiceImpl extends GenericServiceImpl<Cliente, ClienteDAO, Integer> implements ClienteService{
+public class ClienteServiceImpl extends GenericServiceImpl<Cliente, ClienteDAO, Integer> implements ClienteService {
+	
+	
 
 }

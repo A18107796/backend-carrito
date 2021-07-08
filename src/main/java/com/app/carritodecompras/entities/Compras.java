@@ -39,6 +39,18 @@ public class Compras implements Serializable {
 
 	private Date fecha_compras;
 
+	private String tipo_pago;
+	
+	private String num_tarjeta;
+	
+	private String expiration;
+	
+	private String direccion_envio;
+	
+	private int cvv;
+	
+	private String tipo_tarjeta;
+	
 	private String estado;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -102,5 +114,57 @@ public class Compras implements Serializable {
 	public void setDetalles(List<Detalle_compras> detalles) {
 		this.detalles = detalles;
 	}
+
+	public String getTipo_pago() {
+		return tipo_pago;
+	}
+
+	public void setTipo_pago(String tipo_pago) {
+		this.tipo_pago = tipo_pago;
+	}
+
+	public String getNum_tarjeta() {
+		return num_tarjeta;
+	}
+
+	public void setNum_tarjeta(String num_tarjeta) {
+		this.num_tarjeta = num_tarjeta;
+	}
+
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
+
+	public String getTipo_tarjeta() {
+		return tipo_tarjeta;
+	}
+
+	public void setTipo_tarjeta(String tipo_tarjeta) {
+		this.tipo_tarjeta = tipo_tarjeta;
+	}
+
+	public String getDireccion_envio() {
+		return direccion_envio;
+	}
+
+	public void setDireccion_envio(String direccion_envio) {
+		this.direccion_envio = direccion_envio;
+	}
+	
+
+	
+	
 
 }

@@ -25,16 +25,18 @@ public class InfoAdicionalToken implements TokenEnhancer {
 		Usuario usuario = usuarioService.findByUsername(authentication.getName());
 		Map<String, Object> info = new HashMap<String, Object>();
 		
-		if(usuario.getEmpleado() != null) {
+		if(usuario.getEmpleado() == null) {
 			info.put("username", usuario.getUsuario());
-			info.put("nombres", usuario.getEmpleado().getNombres().toUpperCase());
-			info.put("id_usuario", usuario.getId());
-			info.put("id_empleado", usuario.getEmpleado().getId());	
-		}else if(usuario.getCliente() != null) {
-			info.put("username", usuario.getUsuario());
-			info.put("nombres", usuario.getEmpleado().getNombres().toUpperCase());
+			info.put("nombres", usuario.getCliente().getNombres().toUpperCase());
 			info.put("id_usuario", usuario.getId());
 			info.put("id_cliente", usuario.getCliente().getId());
+				
+		}else if(usuario.getCliente() == null) {
+			
+			info.put("username", usuario.getUsuario());
+			info.put("nombres", usuario.getEmpleado().getNombres().toUpperCase());
+			info.put("id_usuario", usuario.getId());
+			info.put("id_empleado", usuario.getEmpleado().getId());
 		}
 		
 		

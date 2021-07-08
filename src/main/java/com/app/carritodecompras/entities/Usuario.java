@@ -1,6 +1,7 @@
 package com.app.carritodecompras.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,6 +44,14 @@ public class Usuario implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Rol> roles;
+	
+	
+	public Usuario() {
+		this.roles = new ArrayList<Rol>();
+	}
+	
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -100,6 +109,14 @@ public class Usuario implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", usuario=" + usuario + ", password=" + password + ", empleado=" + empleado
+				+ ", cliente=" + cliente + ", enabled=" + enabled + ", roles=" + roles + "]";
 	}
 
 
