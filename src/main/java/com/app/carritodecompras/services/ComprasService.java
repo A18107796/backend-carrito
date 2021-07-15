@@ -16,4 +16,10 @@ public interface ComprasService extends GenericService<Compras, Integer>{
 	Double getGananciasTotales();
 	
 	Double getGanancias(String fecha_inicio, String fecha_fin);
+	
+	int updateFoto(String foto, Integer id);
+	
+	int updateEstado(String Estado, Integer id);
+	
+	List<Compras> findByLike(String like);
 }

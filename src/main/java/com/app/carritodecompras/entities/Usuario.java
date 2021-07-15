@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cliente")
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties(value = { "compras","hibernateLazyInitializer", "handler" })
 	private Cliente cliente;
 
 	private boolean enabled;

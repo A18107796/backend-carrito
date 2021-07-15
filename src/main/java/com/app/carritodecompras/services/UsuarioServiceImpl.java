@@ -69,24 +69,42 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, UsuarioDAO, 
 	public Usuario save(Usuario alumno) {
 
 		Persona p;
-
+		String password = "";
 		if (alumno.getEmpleado() != null) {
 			Rol rol = new Rol();
+			Rol rol2 = new Rol();
 			rol.setId((long) 1);
+
+			if (alumno.getEmpleado().getTipo_empleado().equalsIgnoreCase("MOTORIZADO")) {
+				rol2.setId((long) 4);
+			} else if (alumno.getEmpleado().getTipo_empleado().equalsIgnoreCase("COCINERO")) {
+				rol2.setId((long) 5);
+			} else if (alumno.getEmpleado().getTipo_empleado().equalsIgnoreCase("AYUDANTE")) {
+				rol2.setId((long) 6);
+			}
+
 			alumno.getRoles().add(rol);
+			alumno.getRoles().add(rol2);
+			
+			alumno.setUsuario(alumno.getEmpleado().getEmail());
+			password = alumno.getEmpleado().getDni();
 			p = serviceEmpleado.save(alumno.getEmpleado());
 			alumno.setEmpleado(new Empleado(p.getId()));
-
+	
+			
+			
 		} else {
 			Rol rol = new Rol();
 			rol.setId((long) 2);
 			alumno.getRoles().add(rol);
 			p = serviceCliente.save(alumno.getCliente());
 			alumno.setCliente(new Cliente(p.getId()));
+			password = alumno.getPassword();
 		}
-		String password = passwordEncoder.encode(alumno.getPassword());
-		alumno.setEnabled(true);
+		System.out.println("PASS: " + password);
+		password = passwordEncoder.encode(password);
 		alumno.setPassword(password);
+		alumno.setEnabled(true);
 		return super.save(alumno);
 	}
 

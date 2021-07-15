@@ -9,7 +9,7 @@ public class BadRequestException extends RuntimeException {
 	private Object errors;
 
 	public BadRequestException(Object detail) {
-		super(DESCRIPTION + ". " + detail);
+		super(detail + "");
 		this.errors = detail;
 	}
 

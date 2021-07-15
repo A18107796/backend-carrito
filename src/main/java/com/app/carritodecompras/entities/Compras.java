@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -25,13 +26,12 @@ public class Compras implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente")
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties(value = { "compras", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Cliente cliente;
 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_pago")
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
@@ -40,18 +40,20 @@ public class Compras implements Serializable {
 	private Date fecha_compras;
 
 	private String tipo_pago;
-	
+
 	private String num_tarjeta;
-	
+
 	private String expiration;
-	
+
 	private String direccion_envio;
-	
+
 	private int cvv;
-	
+
 	private String tipo_tarjeta;
-	
+
 	private String estado;
+
+	private String img;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_compras")
@@ -162,9 +164,22 @@ public class Compras implements Serializable {
 	public void setDireccion_envio(String direccion_envio) {
 		this.direccion_envio = direccion_envio;
 	}
-	
 
-	
-	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public double getTotal() {
+		double totalcreditos = 0.0;
+		for (Detalle_compras d : detalles) {
+
+			totalcreditos += d.getSubtotal();
+		}
+		return totalcreditos;
+	}
 
 }
